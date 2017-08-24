@@ -110,7 +110,7 @@ This function calls the fetch_results() to obtain results and are stored in 'out
 '''
 
 
-def soup_output(url, title, page_limit):
+def get_results(url, title, page_limit):
     global torrent_count
     for p in range(page_limit):
         if torrent_count < 30:
@@ -127,7 +127,6 @@ def soup_output(url, title, page_limit):
 
 '''
 Fetch results for given input (soup)
-soup is from get_results()
 Following data is fetched:
 - name
 - uploader name
@@ -297,7 +296,7 @@ def main(title, page_limit):
         print("Note: KAT can be slower at times, and take longer time than usual to fetch results.\n\n")
         proxy_list = proxy_select()
         url = cycle_proxies(proxy_list)
-        output = soup_output(url, title, page_limit)
+        output = get_results(url, title, page_limit)
         print("\nS=SEEDS; L=LEECHES; C=COMMENTS; " + YELLOW + "YELLOW UPLOADERS " + RESET + "are Verified Uploaders")
         print(output)
         after_output_text()
