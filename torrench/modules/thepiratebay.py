@@ -13,14 +13,6 @@ import platform
 from torrench.utilities.find_url import proxy_list
 from torrench.modules.tpb_details import get_details
 
-print("""
-######################
-#                    #
-#    ThePirateBay    #
-#                    #
-######################
-""")
-
 
 '''
 Initialisations
@@ -106,7 +98,7 @@ variables used:
 If 50 torrents are fetched (means 2 pages) and (-p) argument is 4,
 Then fetching process stops at 2, and no further pages are fetched.
 This is what torrent_count is used for (here)
-   
+
 -- title :: the title given by user
 -- page_limit :: Value of (-p) argument
 This function calls the fetch_results() to obtain results and are stored in 'output'
@@ -221,7 +213,7 @@ def fetch_results(soup):
 
 
 '''
-Function called after output table is displayed. 
+Function called after output table is displayed.
 Displays text and following info:
 - Total torrents fetched (index)
 - Time taken to fetch all torrents (total_fetch_time)
@@ -308,6 +300,13 @@ Execution begins here
 
 
 def main(title, page_limit):
+    print("""
+    ######################
+    #                    #
+    #    ThePirateBay    #
+    #                    #
+    ######################
+    """)
     i = 0
     try:
         proxy_list = proxy_select()
