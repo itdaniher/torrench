@@ -19,6 +19,7 @@ def args():
     parser.add_argument("-d", "--distrowatch", action="store_true", help="Search distrowatch")
     parser.add_argument("-t", "--thepiratebay", action="store_true", help="Search thepiratebay (TPB)")
     parser.add_argument("-k", "--kickasstorrent", action="store_true", help="Search KickassTorrent (KAT)")
+    parser.add_argument("-m", "--all_magnets", action="store_true", help="Search KAT and TPB for all magnets.")
     parser.add_argument("search", help="Enter search string", nargs="?", default=None)
     parser.add_argument("-p", "--page-limit", type=int, help="Number of pages to fetch results from (1 page = 30 results).\n [default: 1]", default=1, dest="limit")
     parser.add_argument("-c", "--clear-html", action="store_true", default=False, help="Clear all [TPB] torrent description HTML files and exit.")
@@ -64,10 +65,20 @@ def torrent_fetch(args):
     elif args.distrowatch:
         import torrench.modules.distrowatch as distrowatch
         distrowatch.main(input_title)
+    elif args.all_magnets:
+        magnets = []
+        from torrench.modules import thepiratebay, kickasstorrent
+        for tracker in [kickasstorrent, thepiratebay]:
+            proxy_list = tracker.proxy_select()
+            url = tracker.cycle_proxies(proxy_list)
+            output = tracker.get_results(url, input_title, page_limit)
+            for result in tracker.mapper[1::]:
+                magnets.append(result[1])
+        for magnet in magnets:
+            print(magnet)
     else:
         import torrench.modules.linuxtracker as linuxtracker
         linuxtracker.main(input_title)
-
 
 def main(args):
     input_title = args.search
