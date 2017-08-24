@@ -38,9 +38,7 @@ page_fetch_time = 0
 total_fetch_time = 0
 torrent_count = 9999
 master_list = []
-map_name_index = {}
-map_magnet_index = {}
-map_torrentlink_index = {}
+mapper = []
 
 if platform.system() == "Windows":
     OS_WIN = True
@@ -211,10 +209,8 @@ def fetch_results(soup):
         # Further, appending mylist to a masterlist. This masterlist stores the required result
         master_list.append(mylist)
 
-        # Dictationary to map torrent name with corresponding link and magnet-link (Used in get_torrent())
-        map_name_index[str(index)] = name
-        map_magnet_index[str(index)] = magnet
-        map_torrentlink_index[str(index)] = link
+        # Array to map torrent name with corresponding link and magnet-link (Used in get_torrent())
+        mapper.insert(index, (name, magnet, link))
 
     global page_fetch_time
     global total_fetch_time
@@ -275,13 +271,11 @@ def get_torrent(url):
             if index == 0:
                 print("\nBye!")
                 sys.exit(2)
-            selected_torrent = map_name_index[str(index)]
-            req_magnetic_link = map_magnet_index[str(index)]
-            torrent_link = map_torrentlink_index[str(index)]
+            selected_torrent, req_magnetic_link, torrent_link = mapper[index]
         except ValueError:
             print("\nBad Input!")
             continue
-        except KeyError:
+        except IndexError:
             print("\nBad Input!")
             continue
 
