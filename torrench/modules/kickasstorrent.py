@@ -24,7 +24,7 @@ RESET = colorama.Style.RESET_ALL
 
 OS_WIN = False
 master_list = []
-mapper = []
+mapper = [None]
 index = 0
 page_fetch_time = 0
 total_fetch_time = 0
@@ -249,7 +249,6 @@ def get_torrent(url):
             if index == 0:
                 print("\nBye!\n")
                 break
-            selected_torrent, req_magnetic_link, torrent_link = mapper[index]
         except ValueError:
             print("\nBad Input!")
             continue
@@ -257,9 +256,7 @@ def get_torrent(url):
             print("\nBad Input!")
             continue
 
-        selected_torrent = map_name_index[str(index)]
-        req_magnetic_link = map_magnet_index[str(index)]
-        req_torr_link = map_torrlink_index[str(index)]
+        selected_torrent, req_magnetic_link, req_torr_link = mapper[index]
         print("Selected index [%d] - %s\n" % (index, selected_torrent))
         print("Upstream Link: %s \n" % (YELLOW + url + req_torr_link + RESET))
         print("Magnetic Link: %s \n" % (RED + req_magnetic_link + RESET))

@@ -30,7 +30,7 @@ page_fetch_time = 0
 total_fetch_time = 0
 torrent_count = 9999
 master_list = []
-mapper = []
+mapper = [None]
 
 if platform.system() == "Windows":
     OS_WIN = True
