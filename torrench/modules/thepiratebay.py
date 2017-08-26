@@ -208,7 +208,7 @@ def fetch_results(soup):
     global total_fetch_time
     total_fetch_time += page_fetch_time
     print("Torrents: %d [in %.2f sec] \n" % (torrent_count, page_fetch_time))
-    result = tabulate(master_list, headers=['CATEG', 'NAME', 'INDEX', 'UPLOADER', 'SIZE', 'DATE', 'S', 'L', 'C'], tablefmt='grid')
+    result = tabulate(master_list, headers=['CATEG', 'NAME', 'INDEX', 'UPLOADER', 'SIZE', 'S', 'L', 'DATE', 'C'], tablefmt='grid')
     return result
 
 
